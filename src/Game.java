@@ -1,11 +1,18 @@
+import java.io.File;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.scanner;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Game {
 
 	private static Room currentRoom;
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
-
+	private static HashMap<String, Room> roomMap = new HashMap<String, Room>();
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
@@ -29,6 +36,42 @@ public class Game {
 			if (i.getName().equals(name))
 				return i;
 		return null;
+	}
+	
+	public static void saveGame() {
+		try {
+			File saveFile = new File("save");
+			saveFile.createNewFile();
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
+			stream.writeObject(currentRoom);
+			stream.writeObject(inventory);
+			stream.writeObject(roomMap);
+			stream.close();
+			Game.print("Game saved.");
+		} catch (FileNotFoundException ex) {
+			Game.print("Error accessing save file.");
+		} catch (IOException ex) {
+			Game.print("Error creating save file.");
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void loadGame() {
+		try {
+			File loadFile = new File("load");
+			loadFile.createNewFile();
+			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
+			currentRoom = (Room) stream.readObject();
+			stream.readObject(inventory);
+			stream.readObject(roomMap);
+			stream.close();
+			Game.print("Game loaded.");
+		} catch (FileNotFoundException ex) {
+			Game.print("Error accessing load file.");
+		} catch (IOException ex) {
+			Game.print("Error creating load file.");
+			ex.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {

@@ -8,7 +8,6 @@ public class Room {
 	private Room south;
 	private Room up;
 	private Room down;
-	private String desc;
 	private boolean locked; // Is the room locked?
 	private String name;
 	
@@ -16,9 +15,10 @@ public class Room {
 	
 	public Room(String n, String d) {
 		name = n;
-		desc = d;
 		locked = false;
 		roomItems = new HashMap<String, Item>();
+		World.rooms.put(name, this);
+		Game.roomMap.put(name, this);
 	}
 	
 	public String getName() {
@@ -49,8 +49,8 @@ public class Room {
 		return roomItems.containsKey(name);
 	}
 	
-	public String getDesc() {
-		return desc;
+	public String getDesc(String name){
+		return roomItems.containsKey(name);
 	}
 	
 	public void addExit(Room r, char direction) {
@@ -77,8 +77,7 @@ public class Room {
 	}
 	
 	public String toString() {
-		return desc;
+		return getdesc;
 	}
-	
 }
 
