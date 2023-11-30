@@ -1,5 +1,9 @@
+import java.util.HashMap;
 
 public class World {
+	
+	public static HashMap<String, Room> rooms =
+			new HashMap<String, Room>();
 
 	public static Room buildWorld() {
 		Room lobby = new Room("lobby", "The hotel's lobby. Doorways lead east to a lounge"
@@ -16,11 +20,13 @@ public class World {
 		Room hall2 = new Room("hall2", "You on the hotel's second floor! A staircase leads"
 				+ " back down to the lobby.");
 		Room restroom = new Room("restroom", "What a pleasant rest room! So clean! So fresh!");
+		Puppy puppy = new Puppy();
 		
 		lobby.addExit(lounge, 'e');
 		lobby.addExit(bar, 'w');
 		lobby.addExit(hall, 'n');
 		lobby.addExit(hall2, 'u');
+		lobby.addNPC(puppy);
 		
 		lounge.addExit(lobby, 'w');
 		Item newspaper = new Item("newspaper");

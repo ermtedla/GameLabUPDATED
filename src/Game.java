@@ -13,6 +13,7 @@ public class Game {
 	private static Room currentRoom;
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
 	private static HashMap<String, Room> roomMap = new HashMap<String, Room>();
+	
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
@@ -131,6 +132,16 @@ public class Game {
 					for (Item it : inventory) {
 						System.out.println(it);
 					}
+				}
+				break;
+			case "talk":
+					if (npc != null) {
+						npc.talk();
+					}else{
+						print("There is no " + npcName + "here.");
+					}
+					}else{
+						print("Talk to who?");
 				}
 				break;
 			case "x":

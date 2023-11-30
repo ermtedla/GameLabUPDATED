@@ -12,6 +12,7 @@ public class Room {
 	private String name;
 	
 	private HashMap<String, Item> roomItems;
+	private HashMap<String, NPC> roomNPCS;
 	
 	public Room(String n, String d) {
 		name = n;
@@ -19,6 +20,18 @@ public class Room {
 		roomItems = new HashMap<String, Item>();
 		World.rooms.put(name, this);
 		Game.roomMap.put(name, this);
+	}
+	
+	public void addNPC (NPC npc) {
+		roomNPCS.put(npc.getName(), npc);
+	}
+	
+	public NPC getNPC(String name) {
+		return roomNPCS.get(name);
+	}
+	
+	public NPC removeNPC(String name) {
+		return roomNPCS.remove(name);
 	}
 	
 	public String getName() {
