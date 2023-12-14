@@ -74,13 +74,19 @@ public class Game {
 			ex.printStackTrace();
 		}
 	}
+	
+	public static void print(Object obj) {
+		GUI.print(obj.toString());
+	}
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		String playerCommand = "a";
 		String itemName;
 		Item i;
+		NPC npc;
 		currentRoom = World.buildWorld();
+		gui = new GameGUI();
 		System.out.println(currentRoom);
 		while (!playerCommand.equals("x")) {
 			System.out.print("What do you want to do? ");
